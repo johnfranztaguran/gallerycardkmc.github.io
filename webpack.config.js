@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -103,6 +104,12 @@ module.exports = {
     // new CopyWebpackPlugin({'patterns': [
     //   { from: './src/images', to: 'images' }
     // ]}),
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/images', to: 'images' }, // Copies all files from 'src/images' to 'dist/images'
+        // You can add more patterns for other static assets
+      ],
+    }),
   ],
   devServer: {
     // contentBase: './dist',
