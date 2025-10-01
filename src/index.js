@@ -32,5 +32,5 @@ const templateLoader = async (htmlPath = '', templateId = '', rootId = '') => {
 };
 
 // load appended html node to shadow dom
-document.addEventListener('DOMContentLoaded', templateLoader('./components/gallery/index.html', 'temp-gallery-block', 'gallery-block'));
-document.addEventListener('DOMContentLoaded', templateLoader('./components/cards/index.html', 'temp-cards-block', 'cards-block'));
+// document.addEventListener('DOMContentLoaded', templateLoader('./components/gallery/index.html', 'temp-gallery-block', 'gallery-block'));
+// document.addEventListener('DOMContentLoaded', templateLoader('./components/cards/index.html', 'temp-cards-block', 'cards-block'));

@@ -1,1 +1,62 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"><link href="/style.css"><script src="/index.js"></script><script src="/components/gallery/index.js"></script><script src="/components/cards/index.js"></script><title>Gallery & Cards</title><script defer="defer" src="/index.js"></script></head><body><div id="gallery-block"></div><div id="cards-block"></div></body></html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"><link href="/style.css"><script src="index.js"></script><title>Gallery & Cards</title><script defer="defer" src="index.js"></script></head><body><section class="gallery-section"><div class="gallery-container"><div id="grid" class="gallery-grid"><div class="first-column"><div class="gallery-image-one" onclick="onOpenModal('images/gallery-one-med.jpg')"><img src="images/gallery-one-small.jpg" alt="Cooking Pot"></div></div><div class="second-column"><div class="gallery-image-two" onclick="onOpenModal('images/gallery-two-large.jpg')"><img src="images/gallery-two-small.jpg" alt="Chef Chose"></div><div class="gallery-image-three" onclick="onOpenModal('images/gallery-three-large.jpg')"><img src="images/gallery-three-small.jpg" alt="Egg Tray"></div></div></div><div class="gallery-content"><div class="title-container"><h1 class="gallery-title">WHAT DOES COOKING MEAN?</h1></div><div class="description-container"><p class="gallery-description">Is it simply applying heat to a food product? A way of making certain food safe to eat? Or a way to create flavour and make food more appealing? This is just part of what Hervé This, the father of molecular gastronomy, has dedicated his life to finding out. We spoke to him to find out what his experiments have told him. And in the process even discovered the secret to cooking the perfect egg...</p><div class="footer-text-wrapper"><span class="the-perfect-egg">THE PERFECT EGG</span> <span class="keep-water">Keep water between 67 and 68°C for a flavourful, tender yolk</span></div></div></div></div></section><div id="imageModal" class="modal"><span class="close" onclick="onCloseModal()">&times;</span><div class="modal-content"><img id="modalImage" src="" alt=""></div></div><section class="cards-section"><div class="cards-container"><div class="cards-content"><div class="card-title-container"><h1 class="cards-title">Taste the Colours</h1></div><div class="cards-grid"><div class="card"><a class="card-link" data-card-id="red-sweets"><div class="card-image" onclick="handleAnchorCard()"><img src="images/card@2x.jpg" alt="Sweets Red"></div></a><div class="card-footer"><h3 class="card-title">Red</h3><p class="card-description">Red foods remind us of the berries and soft fruits, so we anticipate a sweet taste.</p></div></div><div class="card"><a class="card-link" data-card-id="green-sweets"><div class="card-image" onclick="handleAnchorCard()"><img src="images/sweet-green-med.jpg" alt="Sweets Green"></div></a><div class="card-footer"><h3 class="card-title">Green</h3><p class="card-description">Fresh, zingy green colours are reminiscent of unripe fruit, promising sour or acid flavours</p></div></div><div class="card"><a class="card-link" data-card-id="white-sweets"><div class="card-image" onclick="handleAnchorCard()"><img src="images/sweet-white-med.jpg" alt="Sweets White"></div></a><div class="card-footer"><h3 class="card-title">White</h3><p class="card-description">White foods evoke memories of salt and salty flavours, driving the expectation of a savoury treat.</p></div></div></div></div></div></section><script>const handleAnchorCard = () => {
+		// selecting block elements
+		const linkEventData = document.querySelectorAll(".cards-section .card-link");
+		// linkEventData return arrays of nodes list
+		linkEventData.forEach(element => {
+			// listening to click user event to card img
+			element.addEventListener('click', function(event) {
+				// Prevent the default behavior of the anchor tag (e.g., navigating to href)
+				// event.preventDefault();
+
+				// Access event data logs here
+				console.log('Card event data:', {
+					element: this,
+					// href: this.href,
+					href: event.target.currentSrc,
+					cardId: this.getAttribute('data-card-id'),
+					timestamp: new Date().toISOString()
+				});
+				window.open(event.target.currentSrc, '_blank').focus();
+			});
+		});
+	};
+	const onOpenModal = (imageSrc) => {
+		// modal wrapper id
+		const modal = document.getElementById('imageModal');
+		// img tag id
+		const modalImage = document.getElementById('modalImage');
+
+		// reassign display from none to block
+		modal.style.display = 'block';
+		// dynamic string source fromm args function
+		// since our modal init value was empty the default was our root path (ex: /index.html)
+		// we reassign value from click event arg to load it to our modal img src
+		modalImage.src = imageSrc;
+		
+		// Prevent body scroll when modal is open
+		document.body.style.overflow = 'hidden';
+	};
+
+	const onCloseModal = () => {
+		const modal = document.getElementById('imageModal');
+		// revert to default value
+		modal.style.display = 'none';
+		
+		// Restore body scroll
+		document.body.style.overflow = 'auto';
+	};
+
+	// Close modal when clicking outside the image
+	window.onclick = function(event) {
+		const modal = document.getElementById('imageModal');
+		if (event.target === modal) {
+			onCloseModal();
+		}
+	}
+
+	// Close modal with Escape key
+	document.addEventListener('keydown', function(event) {
+		if (event.key === 'Escape') {
+			onCloseModal();
+		}
+	});</script></body></html>

@@ -9,33 +9,22 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: 'auto',
     // publicPath: process.env.NODE_ENV === 'production' ? '/kmcgallerycard.github.io/' : '/',
     clean: true, // Cleans the 'dist' folder before each build
   },
+  // resolve: {
+  //   alias: {
+  //     '@': path.resolve(__dirname, 'src'), // Allows importing like '@/components/MyComponent'
+  //     'images': path.resolve(__dirname, 'src/images'), // Example for an images folder
+  //   },
+  //   extensions: ['.js', '.jsx', '.json', '.html'], // Add other extensions as needed
+  // },
   module: {
     rules: [
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
-        // use: [
-        //   {
-        //     // loader: MiniCssExtractPlugin.loader,
-        //     loader: 'style-loader',
-        //     options: {
-        //       defaultExport: true,
-        //     },
-        //   },
-        //   {
-        //     loader: "css-loader",
-        //     options: {
-        //       esModule: true,
-        //       modules: {
-        //         namedExport: true,
-        //       },
-        //     },
-        //   },
-        // ],
       },
       {
         test: /\.js$/,
@@ -52,33 +41,56 @@ module.exports = {
         type: 'asset/resource' // Emits a separate file and exports the URL
       },
       {
-        test: /\.html$/,
+        test: /\.html$/i,
         use: ['html-loader'], // Or 'raw-loader' if you want the HTML as a string
         exclude: /index\.html$/, // Exclude your main index.html if you're using HtmlWebpackPlugin for it
       },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i, // Regex to match common image extensions
-        use: [
-          {
-            loader: 'url-loader', // Use url-loader
-            options: {
-              limit: 8192, // Images smaller than 8KB will be inlined as data URIs
-              name: 'images/[name].[hash:8].[ext]', // Output path and naming convention
-            },
-          },
-        ],
-      },
       // {
-      //   test: /\.(svg|png|jpg|jpeg|gif)$/,
-      //   include: '/src',
-      //   use: {
-      //     loader: 'file-loader',
-      //     options: {
-      //       name: 'assets[name].[ext]',
-      //       outputPath: '/dist'
-      //     }
-      //   }
-      // }
+      //   test: /\.html$/i,
+      //   loader: 'html-loader',
+      //   options: {
+      //     sources: {
+      //       list: [
+      //         {
+      //           tag: 'img',
+      //           attribute: 'src',
+      //           type: 'src',
+      //         },
+      //       ],
+      //     },
+      //   },
+      //   exclude: /index\.html$/,
+      // },
+      // {
+      //   test: /\.(png|svg|jpg|jpeg|gif)$/i, // Regex to match common image extensions
+      //   use: [
+      //     {
+      //       loader: 'url-loader', // Use url-loader
+      //       options: {
+      //         limit: 8192, // Images smaller than 8KB will be inlined as data URIs
+      //         name: 'images/[name].[hash:8].[ext]', // Output path and naming convention
+      //       },
+      //     },
+      //   ],
+      // },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource', // or 'asset/inline', 'asset/dataurl' based on your needs
+        generator: {
+          filename: 'images/[name].[hash][ext]', // Output images to an 'images' folder
+        },
+      },
+      {
+        test: /\.(svg|png|jpg|jpeg|gif)$/,
+        include: '/src',
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'images[name].[ext]',
+            outputPath: '/dist'
+          }
+        }
+      }
     ],
   },
   plugins: [
@@ -88,6 +100,9 @@ module.exports = {
       template: 'src/index.html', // Your main HTML template
       filename: 'index.html',
     }),
+    // new CopyWebpackPlugin({'patterns': [
+    //   { from: './src/images', to: 'images' }
+    // ]}),
   ],
   devServer: {
     // contentBase: './dist',
