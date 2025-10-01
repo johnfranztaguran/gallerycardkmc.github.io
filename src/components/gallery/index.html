@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<template id="temp-gallery-block">
+  <!-- <style>
+    @import url("/src/components/gallery/style.css");
+  </style> -->
+  <!-- Gallery Block -->
+  <section class="gallery-section">
+    <div class="gallery-container">
+      <div id="grid" class="gallery-grid">
+        <div class="first-column">
+          <div class="gallery-image-one" onclick="onOpenModal('../../../assets/gallery-one-medium.png')">
+            <img src="../../assets/gallery-one-small.png" alt="Cooking Pot">
+          </div>
+        </div>
+        
+        <div class="second-column">
+          <div class="gallery-image-two" onclick="onOpenModal('../../assets/gallery-two-large.png')">
+            <img src="../../assets/gallery-two-small.png" alt="Chef Chose">
+          </div>
+          <div class="gallery-image-three" onclick="onOpenModal('../../assets/gallery-three-large.png')">
+            <img src="../../assets/gallery-three-small.png" alt="Egg Tray">
+          </div>
+        </div>
+      </div>
+      <div class="gallery-content">
+        <div class="title-container">
+          <h1 class="gallery-title">WHAT DOES COOKING MEAN?</h1>
+        </div>
+        <div class="description-container">
+          <p class="gallery-description">
+            Is it simply applying heat to a food product? A way of making certain food 
+            safe to eat? Or a way to create flavour and make food more appealing? This 
+            is just part of what Hervé This, the father of molecular gastronomy, has 
+            dedicated his life to finding out. We spoke to him to find out what his 
+            experiments have told him. And in the process even discovered the secret 
+            to cooking the perfect egg...
+          </p>
+          <div class="footer-text-wrapper">
+            <span class="the-perfect-egg">THE PERFECT EGG</span>
+            <span class="keep-water">Keep water between 67 and 68°C for a flavourful, tender yolk</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="onCloseModal()">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="">
+    </div>
+  </div>
+
+</template>
