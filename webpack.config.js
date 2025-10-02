@@ -14,13 +14,6 @@ module.exports = {
     // publicPath: process.env.NODE_ENV === 'production' ? '/kmcgallerycard.github.io/' : '/',
     clean: true, // Cleans the 'dist' folder before each build
   },
-  // resolve: {
-  //   alias: {
-  //     '@': path.resolve(__dirname, 'src'), // Allows importing like '@/components/MyComponent'
-  //     'images': path.resolve(__dirname, 'src/images'), // Example for an images folder
-  //   },
-  //   extensions: ['.js', '.jsx', '.json', '.html'], // Add other extensions as needed
-  // },
   module: {
     rules: [
       {
@@ -46,34 +39,6 @@ module.exports = {
         use: ['html-loader'], // Or 'raw-loader' if you want the HTML as a string
         exclude: /index\.html$/, // Exclude your main index.html if you're using HtmlWebpackPlugin for it
       },
-      // {
-      //   test: /\.html$/i,
-      //   loader: 'html-loader',
-      //   options: {
-      //     sources: {
-      //       list: [
-      //         {
-      //           tag: 'img',
-      //           attribute: 'src',
-      //           type: 'src',
-      //         },
-      //       ],
-      //     },
-      //   },
-      //   exclude: /index\.html$/,
-      // },
-      // {
-      //   test: /\.(png|svg|jpg|jpeg|gif)$/i, // Regex to match common image extensions
-      //   use: [
-      //     {
-      //       loader: 'url-loader', // Use url-loader
-      //       options: {
-      //         limit: 8192, // Images smaller than 8KB will be inlined as data URIs
-      //         name: 'images/[name].[hash:8].[ext]', // Output path and naming convention
-      //       },
-      //     },
-      //   ],
-      // },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         type: 'asset/resource', // or 'asset/inline', 'asset/dataurl' based on your needs
@@ -96,14 +61,10 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
-    // new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html', // Your main HTML template
       filename: 'index.html',
     }),
-    // new CopyWebpackPlugin({'patterns': [
-    //   { from: './src/images', to: 'images' }
-    // ]}),
     new CopyPlugin({
       patterns: [
         { from: 'src/images', to: 'images' }, // Copies all files from 'src/images' to 'dist/images'
